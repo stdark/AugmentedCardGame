@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QCARConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="qcar_config.xsd">
+  <Tracking>
+    <ImageTarget name="mainFrame" size="10.000000 10.000000" />
+    <ImageTarget name="Jannet" size="10.000000 17.111111" />
+    <ImageTarget name="Vlad3" size="10.000000 17.111111" />
+    <ImageTarget name="Kintoki" size="10.000000 17.111111" />
+    <ImageTarget name="Waver" size="10.000000 17.111111" />
+    <ImageTarget name="Gilgamesh" size="10.000000 17.111111" />
+    <ImageTarget name="Altera" size="10.000000 17.111111" />
+    <ImageTarget name="Arthuria" size="10.000000 17.111111" />
+  </Tracking>
+</QCARConfig>
