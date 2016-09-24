@@ -3,18 +3,26 @@ using System.Collections.Generic;
 using System.Text;
 using System.Net.Sockets;
 using System.Threading;
-public class NetworkAdapter : MonoBehaviour {
-    string ip="192.168.43.75";
-    int port=8888;
-	void Start()
+public class NetworkAdapter : MonoBehaviour
+{
+
+
+    string ip = "192.168.43.75";
+    int port = 8888;
+    byte[] mass = { 0, 0, 0, 0, 0, 0 };
+    public Animator obj;
+
+    void Start()
     {
         Thread thead = new Thread(Connect);
         thead.Start();
-        
-        
+
+
     }
+
     void Connect()
     {
+        
         TcpClient client = new TcpClient();
         Socket sock;
         try
@@ -24,8 +32,8 @@ public class NetworkAdapter : MonoBehaviour {
             sock = client.Client;
             while (true)
             {
-                byte[] mass = {32,45,255,124,136,121};
                 sock.Send(mass);
+                mass = null;
             }
             sock.Close();
             client.Close();
@@ -34,8 +42,20 @@ public class NetworkAdapter : MonoBehaviour {
         catch
         {
             Debug.Log("Can't connect");
-           
-        }        
-        
+
+        }
+
     }
+
+    public void Click()
+    {
+        Debug.Log("Button");
+        obj.Play("bers_punch");
+
+        mass = new byte[] { 255, 135, 168, 68, 97, 15};
+    }
+
+
+
 }
+

@@ -5,7 +5,7 @@ Confidential and Proprietary - Protected under copyright and other laws.
 ==============================================================================*/
 
 using UnityEngine;
-
+using System;
 namespace Vuforia
 {
     /// <summary>
@@ -17,20 +17,38 @@ namespace Vuforia
         #region PRIVATE_MEMBER_VARIABLES
  
         private TrackableBehaviour mTrackableBehaviour;
-    
-        #endregion // PRIVATE_MEMBER_VARIABLES
 
+        #endregion // PRIVATE_MEMBER_VARIABLES
+        public GameObject obj;
 
 
         #region UNTIY_MONOBEHAVIOUR_METHODS
-    
+
         void Start()
         {
+            bool a = true;
+            while (a)
+            {
+                try
+                {
+                    obj = GetComponentInChildren<GameObject>();
+                    break;
+                }
+                catch (NullReferenceException e)
+                {
+
+                }
+            }
             mTrackableBehaviour = GetComponent<TrackableBehaviour>();
+            
             if (mTrackableBehaviour)
             {
                 mTrackableBehaviour.RegisterTrackableEventHandler(this);
             }
+        }
+        void Update()
+        {
+            Debug.Log(obj.transform.position.x.ToString()+","+obj.transform.position.y.ToString());
         }
 
         #endregion // UNTIY_MONOBEHAVIOUR_METHODS
