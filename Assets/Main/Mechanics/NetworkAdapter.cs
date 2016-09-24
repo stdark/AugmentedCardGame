@@ -24,7 +24,7 @@ public class NetworkAdapter : MonoBehaviour {
             sock = client.Client;
             while (true)
             {
-                byte[] mass = {};
+                byte[] mass = {32,45,255,124,136,121};
                 sock.Send(mass);
             }
             sock.Close();
