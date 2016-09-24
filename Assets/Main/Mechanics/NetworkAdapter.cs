@@ -21,6 +21,9 @@ namespace Vuforia
         public Animator Kintoki;
         public Animator Gilgamesh;
         public Animator Emiya;
+        public Animator JanneAlt;
+        public Animator Scatach;
+
         public GameObject btn;
         public GameObject mainFrame;
         public GameObject A1frame;
@@ -81,7 +84,8 @@ namespace Vuforia
                 Kintoki.Play("punch");
                 Gilgamesh.Play("punch");
                 Emiya.Play("punch");
-
+                JanneAlt.Play("punch");
+                Scatach.Play("punch");
             }
 
         }
