@@ -17,7 +17,9 @@ namespace Vuforia
         byte[] mY = { 0, 0, 0, 0 };
         byte[] mMove = { 0 };
 
+
         public Animator anim;
+        public Animator anim2;
 
         void Start()
         {
@@ -64,9 +66,10 @@ namespace Vuforia
         public void Click()
         {
             Debug.Log("Button");
-            anim.Play("bers_punch");
             
-            
+            anim.Play("punch");
+            anim2.Play("punch");
+
         }
 
         public byte retID()
