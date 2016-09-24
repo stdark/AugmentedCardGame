@@ -19,26 +19,13 @@ namespace Vuforia
         private TrackableBehaviour mTrackableBehaviour;
 
         #endregion // PRIVATE_MEMBER_VARIABLES
-        public GameObject obj;
+        public Transform obj;
 
 
         #region UNTIY_MONOBEHAVIOUR_METHODS
 
         void Start()
-        {
-            bool a = true;
-            while (a)
-            {
-                try
-                {
-                    obj = GetComponentInChildren<GameObject>();
-                    break;
-                }
-                catch (NullReferenceException e)
-                {
-
-                }
-            }
+        { 
             mTrackableBehaviour = GetComponent<TrackableBehaviour>();
             
             if (mTrackableBehaviour)
@@ -48,7 +35,16 @@ namespace Vuforia
         }
         void Update()
         {
-            Debug.Log(obj.transform.position.x.ToString()+","+obj.transform.position.y.ToString());
+            try
+            {
+                obj = GetComponent<Transform>().GetComponentInChildren<Transform>();
+                Debug.Log(obj.transform.position.x.ToString() + "," + obj.transform.position.y.ToString());
+            }
+            catch (NullReferenceException e)
+            {
+
+            }
+           
         }
 
         #endregion // UNTIY_MONOBEHAVIOUR_METHODS

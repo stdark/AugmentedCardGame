@@ -32,6 +32,9 @@ public class NetworkAdapter : MonoBehaviour
             sock = client.Client;
             while (true)
             {
+                for (int i = 0; i < 6; i++) {
+                    Debug.Log(mass[i]);
+                }
                 sock.Send(mass);
                 mass = null;
             }
