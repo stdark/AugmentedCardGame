@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <QCARConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="qcar_config.xsd">
   <Tracking>
+    <ImageTarget name="A1frame" size="10.000000 10.000000" />
+    <ImageTarget name="B1frame" size="10.000000 10.000000" />
+    <ImageTarget name="mainFrame" size="10.000000 10.000000" />
     <ImageTarget name="Alex" size="10.000000 17.348377" />
     <ImageTarget name="Scatach" size="10.000000 17.348377" />
     <ImageTarget name="Janne" size="10.000000 17.348377" />
@@ -10,7 +13,5 @@
     <ImageTarget name="Waver" size="10.000000 17.323944" />
     <ImageTarget name="Kintoki" size="10.000000 17.372881" />
     <ImageTarget name="Arthuria" size="10.000000 17.489422" />
-    <ImageTarget name="A1frame" size="10.000000 10.000000" />
-    <ImageTarget name="mainFrame" size="10.000000 10.000000" />
   </Tracking>
 </QCARConfig>

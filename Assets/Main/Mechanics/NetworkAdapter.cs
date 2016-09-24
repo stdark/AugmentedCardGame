@@ -20,6 +20,7 @@ namespace Vuforia
 
         public Animator anim;
         public Animator anim2;
+        public GameObject btn;
 
         void Start()
         {
@@ -28,7 +29,12 @@ namespace Vuforia
 
 
         }
-
+        void Update()
+        {
+            mId[0] = retID();
+            mX = fl2byte(ReturnX());
+            mY = fl2byte(ReturnY());
+        }
         void Connect()
         {
 
@@ -41,14 +47,12 @@ namespace Vuforia
                 sock = client.Client;
                 while (true)
                 {
+                    
 
-                    mId[0] = retID();
-                    mX = fl2byte(ReturnX());
-                    mY = fl2byte(ReturnY());
-
-                    sock.Send(mId);
-                    sock.Send(mX);
-                    sock.Send(mY);
+                    byte[] temp = {mId[0], mX[0], mX[1], mX[2], mX[3], mY[0], mY[1], mY[2], mY[3], mMove[0]};
+                    sock.Send(temp);
+                    
+                    
 
                 }
                 sock.Close();
@@ -65,10 +69,13 @@ namespace Vuforia
 
         public void Click()
         {
-            Debug.Log("Button");
-            
-            anim.Play("punch");
-            anim2.Play("punch");
+            if(btn.tag =="attack_btn")
+            {
+                Debug.Log("Button");
+                anim.Play("punch");
+                anim2.Play("punch");
+
+            }
 
         }
 

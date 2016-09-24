@@ -27,11 +27,12 @@
     }
     public enum Move : byte
     {
-        Attack = 0,
-        Skill1 =1,
-        Skill2 =2,
-        Skill3 =3,
-        Ult =4
+        Nothing=0,
+        Attack = 1,
+        Skill1 =2,
+        Skill2 =3,
+        Skill3 =4,
+        Ult =5,
     }
 
 }
