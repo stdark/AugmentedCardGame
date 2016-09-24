@@ -3,62 +3,103 @@ using System.Collections.Generic;
 using System.Text;
 using System.Net.Sockets;
 using System.Threading;
-public class NetworkAdapter : MonoBehaviour
+using System;
+namespace Vuforia
 {
-
-
-    string ip = "192.168.43.75";
-    int port = 8888;
-    byte[] mass = { 0, 0, 0, 0, 0, 0 };
-    public Animator obj;
-
-    void Start()
+    public class NetworkAdapter : DefaultTrackableEventHandler
     {
-        Thread thead = new Thread(Connect);
-        thead.Start();
 
 
-    }
+        string ip = "192.168.43.75";
+        int port = 8888;
+        byte[] mId = { 0 };
+        byte[] mX = { 0, 0, 0, 0};
+        byte[] mY = { 0, 0, 0, 0 };
+        byte[] mMove = { 0 };
 
-    void Connect()
-    {
-        
-        TcpClient client = new TcpClient();
-        Socket sock;
-        try
+        public Animator anim;
+
+        void Start()
         {
-            client.Connect(ip, port);
-            Debug.Log("Connected");
-            sock = client.Client;
-            while (true)
+            Thread thead = new Thread(Connect);
+            thead.Start();
+
+
+        }
+
+        void Connect()
+        {
+
+            TcpClient client = new TcpClient();
+            Socket sock;
+            try
             {
-                for (int i = 0; i < 6; i++) {
-                    Debug.Log(mass[i]);
+                client.Connect(ip, port);
+                Debug.Log("Connected");
+                sock = client.Client;
+                while (true)
+                {
+
+                    mId[0] = retID();
+                    mX = fl2byte(ReturnX());
+                    mY = fl2byte(ReturnY());
+
+                    sock.Send(mId);
+                    sock.Send(mX);
+                    sock.Send(mY);
+
                 }
-                sock.Send(mass);
-                mass = null;
+                sock.Close();
+                client.Close();
+
             }
-            sock.Close();
-            client.Close();
+            catch
+            {
+                Debug.Log("Can't connect");
+
+            }
 
         }
-        catch
+
+        public void Click()
         {
-            Debug.Log("Can't connect");
-
+            Debug.Log("Button");
+            anim.Play("bers_punch");
+            
+            
         }
 
+        public byte retID()
+        {
+            if (anim.name == CardsList.Arthuria)
+                return (byte)CardsList.Cards.Arthuria;
+            else if (anim.name == CardsList.Arthuria)
+                return (byte)CardsList.Cards.Arthuria;
+            else if (anim.name == CardsList.Gilgamesh)
+                return (byte)CardsList.Cards.Gilgamesh;
+            else if (anim.name == CardsList.Scatach)
+                return (byte)CardsList.Cards.Scatach;
+            else if (anim.name == CardsList.Alex)
+                return (byte)CardsList.Cards.Alex;
+            else if (anim.name == CardsList.Waver)
+                return (byte)CardsList.Cards.Waver;
+            else if (anim.name == CardsList.Emiya)
+                return (byte)CardsList.Cards.Emiya;
+            else if (anim.name == CardsList.Kintoki)
+                return (byte)CardsList.Cards.Kintoki;
+            else if (anim.name == CardsList.Janne)
+                return (byte)CardsList.Cards.Janne;
+            else if (anim.name == CardsList.JanneAlt)
+                return (byte)CardsList.Cards.JanneAlt;
+            else return 0;
+        }
+
+        byte[] fl2byte(float x)
+        {
+            return BitConverter.GetBytes(x);
+        }
+
+
     }
-
-    public void Click()
-    {
-        Debug.Log("Button");
-        obj.Play("bers_punch");
-
-        mass = new byte[] { 255, 135, 168, 68, 97, 15};
-    }
-
-
 
 }
-

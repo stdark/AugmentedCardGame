@@ -17,7 +17,7 @@ namespace Vuforia
         #region PRIVATE_MEMBER_VARIABLES
  
         private TrackableBehaviour mTrackableBehaviour;
-
+        bool z = true;
         #endregion // PRIVATE_MEMBER_VARIABLES
         public Transform obj;
 
@@ -35,22 +35,32 @@ namespace Vuforia
         }
         void Update()
         {
-            try
-            {
-                obj = GetComponent<Transform>().GetComponentInChildren<Transform>();
-                Debug.Log(obj.transform.position.x.ToString() + "," + obj.transform.position.y.ToString());
-            }
-            catch (NullReferenceException e)
-            {
+            obj = GetComponentInChildren<Transform>();
 
-            }
-           
         }
 
         #endregion // UNTIY_MONOBEHAVIOUR_METHODS
 
+        public float ReturnX()
+        {
+            
+            if (z)
+            {
+                return obj.transform.position.x;
+            }
+            return 0;
+            
+        }
+        public float ReturnY()
+        {
 
+            if (z)
+            {
+                return obj.transform.position.y;
+            }
+            return 0;
 
+        }
         #region PUBLIC_METHODS
 
         /// <summary>
@@ -98,6 +108,7 @@ namespace Vuforia
             }
 
             Debug.Log("Trackable " + mTrackableBehaviour.TrackableName + " found");
+            z = true;
         }
 
 
@@ -119,6 +130,7 @@ namespace Vuforia
             }
 
             Debug.Log("Trackable " + mTrackableBehaviour.TrackableName + " lost");
+            z = false;
         }
 
         #endregion // PRIVATE_METHODS
