@@ -17,9 +17,10 @@ namespace Vuforia
         #region PRIVATE_MEMBER_VARIABLES
  
         private TrackableBehaviour mTrackableBehaviour;
-        bool z = true;
+        protected bool z = true;
         #endregion // PRIVATE_MEMBER_VARIABLES
-        public Transform obj;
+        
+
 
 
         #region UNTIY_MONOBEHAVIOUR_METHODS
@@ -35,32 +36,14 @@ namespace Vuforia
         }
         void Update()
         {
-            obj = GetComponentInChildren<Transform>();
-
+           
         }
 
         #endregion // UNTIY_MONOBEHAVIOUR_METHODS
 
-        public float ReturnX()
-        {
-            
-            if (z)
-            {
-                return obj.transform.position.x;
-            }
-            return 0;
-            
-        }
-        public float ReturnY()
-        {
+        
 
-            if (z)
-            {
-                return obj.transform.position.y;
-            }
-            return 0;
 
-        }
         #region PUBLIC_METHODS
 
         /// <summary>

@@ -18,9 +18,14 @@ namespace Vuforia
         byte[] mMove = { 0 };
 
 
-        public Animator anim;
-        public Animator anim2;
+        public Animator Kintoki;
+        public Animator Gilgamesh;
+        public Animator Emiya;
         public GameObject btn;
+        public GameObject mainFrame;
+        public GameObject A1frame;
+        public GameObject B1frame;
+
 
         void Start()
         {
@@ -30,10 +35,11 @@ namespace Vuforia
 
         }
         void Update()
-        {
+        {     
+            mX = fl2byte(CoordCountX(Kintoki));
+            mY = fl2byte(CoordCountY(Kintoki));
             mId[0] = retID();
-            mX = fl2byte(ReturnX());
-            mY = fl2byte(ReturnY());
+            
         }
         void Connect()
         {
@@ -72,8 +78,9 @@ namespace Vuforia
             if(btn.tag =="attack_btn")
             {
                 Debug.Log("Button");
-                anim.Play("punch");
-                anim2.Play("punch");
+                Kintoki.Play("punch");
+                Gilgamesh.Play("punch");
+                Emiya.Play("punch");
 
             }
 
@@ -81,25 +88,25 @@ namespace Vuforia
 
         public byte retID()
         {
-            if (anim.name == CardsList.Arthuria)
+            if (Kintoki.name == CardsList.Arthuria)
                 return (byte)CardsList.Cards.Arthuria;
-            else if (anim.name == CardsList.Arthuria)
+            else if (Kintoki.name == CardsList.Arthuria)
                 return (byte)CardsList.Cards.Arthuria;
-            else if (anim.name == CardsList.Gilgamesh)
+            else if (Kintoki.name == CardsList.Gilgamesh)
                 return (byte)CardsList.Cards.Gilgamesh;
-            else if (anim.name == CardsList.Scatach)
+            else if (Kintoki.name == CardsList.Scatach)
                 return (byte)CardsList.Cards.Scatach;
-            else if (anim.name == CardsList.Alex)
+            else if (Kintoki.name == CardsList.Alex)
                 return (byte)CardsList.Cards.Alex;
-            else if (anim.name == CardsList.Waver)
+            else if (Kintoki.name == CardsList.Waver)
                 return (byte)CardsList.Cards.Waver;
-            else if (anim.name == CardsList.Emiya)
+            else if (Kintoki.name == CardsList.Emiya)
                 return (byte)CardsList.Cards.Emiya;
-            else if (anim.name == CardsList.Kintoki)
+            else if (Kintoki.name == CardsList.Kintoki)
                 return (byte)CardsList.Cards.Kintoki;
-            else if (anim.name == CardsList.Janne)
+            else if (Kintoki.name == CardsList.Janne)
                 return (byte)CardsList.Cards.Janne;
-            else if (anim.name == CardsList.JanneAlt)
+            else if (Kintoki.name == CardsList.JanneAlt)
                 return (byte)CardsList.Cards.JanneAlt;
             else return 0;
         }
@@ -109,6 +116,23 @@ namespace Vuforia
             return BitConverter.GetBytes(x);
         }
 
+
+        public float CoordCountX(Animator ani)
+        {
+            if (z)
+            {
+                return (float)(((mainFrame.transform.position.x + B1frame.transform.position.x) / 2) * Math.Cos((ani.transform.position.x - B1frame.transform.position.x) / (B1frame.transform.position.x - mainFrame.transform.position.x)) + ((B1frame.transform.position.x + A1frame.transform.position.x) / 2) + ((mainFrame.transform.position.x + A1frame.transform.position.x) / 2) * Math.Cos((ani.transform.position.x - B1frame.transform.position.x) / (A1frame.transform.position.x - mainFrame.transform.position.x)));
+            }
+            return 0;
+        }
+        public float CoordCountY(Animator ani)
+        {
+            if (z)
+            {
+                return (float)(((mainFrame.transform.position.z + B1frame.transform.position.z) / 2) * Math.Cos((ani.transform.position.z - B1frame.transform.position.z) / (B1frame.transform.position.z - mainFrame.transform.position.z)) + ((B1frame.transform.position.z + A1frame.transform.position.z) / 2) + ((mainFrame.transform.position.z + A1frame.transform.position.z) / 2) * Math.Cos((ani.transform.position.z - B1frame.transform.position.z) / (A1frame.transform.position.z - mainFrame.transform.position.z))); return 0;
+        }
+            return 0;
+        }
 
     }
 
