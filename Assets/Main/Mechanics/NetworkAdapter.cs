@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Net.Sockets;
+using System.IO;
 using System.Threading;
 using System;
 namespace Vuforia
@@ -9,14 +10,9 @@ namespace Vuforia
     public class NetworkAdapter : DefaultTrackableEventHandler
     {
 
-
-        string ip = "192.168.43.75";
-        int port = 8888;
-        byte[] mId = { 0 };
-        byte[] mX = { 0, 0, 0, 0};
-        byte[] mY = { 0, 0, 0, 0 };
-        byte[] mMove = { 0 };
-        byte[] buffer;
+        
+        
+       
         public Animator aKintoki;
         public Animator aGilgamesh;
         public Animator aEmiya;
@@ -37,152 +33,60 @@ namespace Vuforia
         public GameObject gJanne;
         public GameObject gArthuria;
         public GameObject btn;
+        public GameObject btn2;
         public GameObject mainFrame;
         public GameObject A1frame;
         public GameObject B1frame;
-
+        int i = 0;
+        string ip = "192.168.43.75";
+        int port = 8888;
 
         void Start()
-        {
-            Thread thead = new Thread(Connect);
-            thead.Start();
-
+        { 
+            
 
         }
         void Update()
         {
-            mX = fl2byte(CoordCountX(gKintoki));
-            mY = fl2byte(CoordCountY(gKintoki));
-            mId = id2byte(retID(gKintoki));
+           
 
-
-        }
-        void Connect()
-        {
-
-            TcpClient client = new TcpClient();
-            Socket sock;
-            try
-            {
-                client.Connect(ip, port);
-                Debug.Log("Connected");
-                sock = client.Client;
-                
-                while (true)
-                {
-                   
-                   
-                    byte[] temp = new byte[10]{mId[0], mX[0], mX[1], mX[2], mX[3], mY[0], mY[1], mY[2], mY[3], mMove[0]};
-                    
-                    sock.Send(temp);
-                    Debug.Log("sent");
-                    buffer = new byte[1024];
-                    
-                    sock.Receive(buffer, 0, buffer.Length, SocketFlags.None);
-                    
-                    string ten="";
-
-                    for (int i = 0; i < buffer.Length; i++)
-                    {
-                        ten += buffer[i];
-                        ten += ",";
-                    }
-                       
-                        Debug.Log(ten);
-                    
-                    Thread.Sleep(10);
-                    
-                    
-
-                }
-                sock.Close();
-                client.Close();
-
-            }
-            catch
-            {
-                Debug.Log("Can't connect");
-
-            }
 
         }
 
         public void Click()
         {
-            if(btn.tag =="attack_btn")
+            if (btn.tag == "attack_btn")
             {
-                Debug.Log("Button");
+                
+                if (i == 0) { aKintoki.Play("punch"); aGilgamesh.Play("damage"); }
+                if (i == 1) { aGilgamesh.Play("punch"); aWaver.Play("damage"); }
+                if (i == 2) { aJanneAlt.Play("punch"); aJanne.Play("damage");}
+                if (i == 3) { aJanne.Play("punch"); aKintoki.Play("damage"); }
+                if (i == 4) { aWaver.Play("punch");  aGilgamesh.Play("damage"); }
+                if (i == 5) { aAlex.Play("punch"); aWaver.Play("damage"); };
+                if (i == 6) { aKintoki.Play("punch"); aJanne.Play("damage"); }
+                if (i == 7) { aGilgamesh.Play("punch"); aWaver.Play("die"); }
+                if (i == 8) { aJanneAlt.Play("punch"); aAlex.Play("die");}
+                if (i == 9) { aJanne.Play("punch"); aJanneAlt.Play("damage"); }
+                if (i == 10) { aKintoki.Play("punch"); aJanne.Play("die");}
+                if (i == 11) { aGilgamesh.Play("punch"); aKintoki.Play("damage"); }
+                if (i == 12) { aJanneAlt.Play("punch"); aGilgamesh.Play("die"); i = -2; }
+                i++;
+            }
+            if (btn2.name == "Attack_1s")
+            {
                 aKintoki.Play("punch");
                 aGilgamesh.Play("punch");
-                aEmiya.Play("punch");
                 aJanneAlt.Play("punch");
-                aScatach.Play("punch");
+                aJanne.Play("punch");
                 aWaver.Play("punch");
                 aAlex.Play("punch");
-                aJanne.Play("punch");
-                aArthuria.Play("punch");
+            }
+
             }
 
         }
-        void PositionHandler(byte id, float x, float y)
-        {
-
-        }
-
-        public byte retID(GameObject oj)
-        {
-            if (oj == gKintoki)
-                return 7;
-            else if (oj == gJanneAlt)
-                return 9;
-            else if (oj == gGilgamesh)
-                return 2;
-            else if (oj == gArthuria)
-                return 1;
-            else if (oj == gJanne)
-                return 8;
-            else if (oj == gWaver)
-                return 5;
-            else if (oj == gScatach)
-                return 3;
-            else if (oj == gEmiya)
-                return 6;
-            else if (oj == gAlex)
-                return 4;
-            else return 0;
-        }
-
-        byte[] fl2byte(float x)
-        {
-            return BitConverter.GetBytes(x);
-        }
-        byte[] id2byte(byte x)
-        {
-            return BitConverter.GetBytes(x);
-        }
-        float byte2float (byte[] a)
-        {
-            
-            return BitConverter.ToSingle(a,0);
-        }
-
-        public float CoordCountX(GameObject gd)
-        {
-            if (z)
-            {
-                return (float)(((mainFrame.transform.position.x + B1frame.transform.position.x) / 2) * Math.Cos((gd.transform.position.x - B1frame.transform.position.x) / (B1frame.transform.position.x - mainFrame.transform.position.x)) + ((B1frame.transform.position.x + A1frame.transform.position.x) / 2) + ((mainFrame.transform.position.x + A1frame.transform.position.x) / 2) * Math.Cos((gd.transform.position.x - B1frame.transform.position.x) / (A1frame.transform.position.x - mainFrame.transform.position.x)));
-            }
-            else return 0;
-        }
-        public float CoordCountY(GameObject gd)
-        {
-            if (z)
-            {
-                return (float)(((mainFrame.transform.position.z + B1frame.transform.position.z) / 2) * Math.Cos((gd.transform.position.z - B1frame.transform.position.z) / (B1frame.transform.position.z - mainFrame.transform.position.z)) + ((B1frame.transform.position.z + A1frame.transform.position.z) / 2) + ((mainFrame.transform.position.z + A1frame.transform.position.z) / 2) * Math.Cos((gd.transform.position.z - B1frame.transform.position.z) / (A1frame.transform.position.z - mainFrame.transform.position.z))); return 0;
-             }
-            else return 0;
-        }
-
+       
     }
 
-}
+
